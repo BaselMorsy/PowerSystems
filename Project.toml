@@ -1,0 +1,7 @@
+[deps]
+Alpine = "07493b3f-dabb-5b16-a503-4139292d7dd4"
+Cbc = "9961bab8-2fa3-5c5a-9d89-47fab24efd76"
+Convex = "f65535da-76fb-5f13-bab9-19810c17039a"
+GLPKMathProgInterface = "3c7084bd-78ad-589a-b5bb-dbd673274bea"
+Gurobi = "2e9cd046-0924-5485-92f1-d5272153d98b"
+Juniper = "2ddba703-00a4-53a7-87a5-e8b9971dde84"
