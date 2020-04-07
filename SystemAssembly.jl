@@ -443,7 +443,7 @@ function Solve_OTS!(System ::System_Struct,method = "ACOTS",use_dc_flag = true ,
 
                 # 2.2. Constraints
                 JuMP.@constraint(m, ReferenceAngle,
-                    (δ[1] ==  0.0))
+                    (δ[Gen_set[1]] ==  0.0))
 
 
                 JuMP.@constraint(m,Nodal_balance[i in Nodes_set],
