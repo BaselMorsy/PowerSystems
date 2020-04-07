@@ -5,31 +5,23 @@ using Juniper,JuMP, Ipopt, Cbc
 
 include("SystemAssembly.jl")
 include("report.jl")
-Sbase = 1000;
+Sbase = 100;
 
 #Instantiate System
-System_ACOPF = SystemAssembly("branch.csv",Sbase,"bus.csv","gen.csv")
-System_ACOPF_2 = SystemAssembly("branch.csv",Sbase,"bus.csv","gen.csv")
 
+system_dir = string(pwd(),"\\Systems\\5_Bus");
+branch_dir = string(system_dir,"\\branch5.csv");
+bus_dir = string(system_dir,"\\bus5.csv");
+gen_dir = string(system_dir,"\\gen5.csv");
 
-line_status=Solve_OTS!(System_ACOPF,0,"ACOTS")
-Solve_OPF!(System_ACOPF_2,"ACOPF")
-System_ACOPF_2.BusData_output
+System_5Bus_ACOPF = SystemAssembly(branch_dir,Sbase,bus_dir,gen_dir)
+System_5Bus_DCOPF = SystemAssembly(branch_dir,Sbase,bus_dir,gen_dir)
+System_5Bus_ACOTS_noDC = SystemAssembly(branch_dir,Sbase,bus_dir,gen_dir)
+System_5Bus_ACOTS_DC = SystemAssembly(branch_dir,Sbase,bus_dir,gen_dir)
+System_5Bus_DCOTS = SystemAssembly(branch_dir,Sbase,bus_dir,gen_dir)
 
-
-System_14_ACOPF = SystemAssembly("branch14.csv",1000,"bus14.csv","gen14.csv")
-System_14_ACOPF_M = SystemAssembly("branch14.csv",1000,"bus14.csv","gen14.csv")
-
-line_status_14 = Solve_OTS!(System_14_ACOPF,1,"ACOTS")
-Solve_OPF!(System_14_ACOPF_M,"ACOPF")
-System_14_ACOPF_M.LineLoading
-System_14_ACOPF_M.LineLoading[:,1]
-
-for i in Nodes_set, j in Nodes_set if ([i,j] in lines_set_1 || [i,j] in lines_set_2)
-    println(JuMP.start_value(v))
-    println(JuMP.start_value(δ))
-    println(JuMP.start_value(p))
-    println(JuMP.start_value(q))
-    println(JuMP.start_value(pij))
-    println(JuMP.start_value(qij))
-    println(JuMP.start_value(a))
+Solve_OPF!(System_5Bus_ACOPF,"ACOPF")
+Solve_OPF!(System_5Bus_DCOPF,"DCOPF")
+Solve_OTS!(System_5Bus_ACOTS_noDC,"ACOTS",false)
+Solve_OTS!(System_5Bus_ACOTS_DC,"ACOTS",true)
+Solve_OTS!(System_5Bus_DCOTS,"DCOTS")
