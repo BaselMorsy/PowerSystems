@@ -50,3 +50,19 @@ function print_report(System ::System_Struct)
     println("                                       Total:           ", round(sum(PLoss),digits=3), "                                 ",round(sum(QLoss),digits=3))
     println("=========================== END OF REPORT ========================================")
 end
+
+function print_latex_data(System ::System_Struct)
+
+    bus_cols = [:bus_i,:Pd]
+    ind = findall(x->x!=0,System.BusData[:Pd])
+    bus_data = System.BusData[ind,bus_cols]
+    show(stdout, MIME("text/latex"),bus_data)
+
+    line_cols = [:fbus,:tbus,:x,:rate]
+    line_data = System.LineData[line_cols]
+    show(stdout, MIME("text/latex"),line_data)
+
+    gen_cols = [:bus,:C1,:C0,:Pmax,:Pmin]
+    gen_data = System.Gen_Data[gen_cols]
+    show(stdout, MIME("text/latex"),gen_data)
+end
