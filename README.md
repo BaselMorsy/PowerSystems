@@ -3,7 +3,7 @@ A computational package developed in Julia language for power systems. The packa
 
 ## Capabilities:
 1. Solving OPF (AC and DC)
-2. Solving OTS (AC and DC)
+2. Solving OSR
 
 ## Usage:
 1. Run `config.jl` to install requirements.
